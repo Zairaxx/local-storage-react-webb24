@@ -7,10 +7,13 @@ function App() {
   const [myJSON, setMyJSON] = useState(JSON.parse(sessionStorage.getItem("Data")) || []);
 
 
+  //Ett sätt att synka localStorage med state är att använda en useEffect
+
+  //Varje gång myJSON ändrar värde, uppdaterar vi även localStorage
   useEffect(() => {
     console.log("Sparar värdet i storage...")
-    //Spara värdet i localStorage
-    sessionStorage.setItem("Data", JSON.stringify(myJSON))
+    
+    localStorage.setItem("Data", JSON.stringify(myJSON))
   },[myJSON])
 
   const saveData = () => {
@@ -24,9 +27,8 @@ function App() {
     }
   ]
 
-  //Sparas i localStorage
-  // sessionStorage.setItem("Data",JSON.stringify(newData))
-  //Sparas i state
+  //Sparar i localStorage - behövs inte pga vår useEffect
+  // localStorage.setItem("Data",JSON.stringify(newData))
   setMyJSON(newData);
   }
 
@@ -35,9 +37,10 @@ function App() {
 
     let updatedData = [...myJSON, newData]
     setMyJSON(updatedData);
-    //Spara i localStorage
-    // sessionStorage.setItem("Data",JSON.stringify(updatedData));
-    //Spara i state
+
+    //Sparar i localStorage - behövs inte pga vår useEffect
+
+    // localStorage.setItem("Data",JSON.stringify(updatedData));
   }
 
   return (
